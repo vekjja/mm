@@ -16,8 +16,8 @@ var (
 	xMin,
 	xMax,
 	yMin,
-	yMax,
-	loop int
+	yMax int
+	loop float64
 
 	clickClickPath string
 )
@@ -48,19 +48,15 @@ func Execute() {
 
 func init() {
 	rootCmd.AddCommand(clickCmd)
-	rootCmd.PersistentFlags().IntVar(&loop, "loop", 0, "Toggle Automation Looping and set the delay in seconds between each iteration")
+	rootCmd.PersistentFlags().Float64Var(&loop, "loop", 0, "Toggle Automation Looping and set the delay in seconds between each iteration (fractions allowed, e.g. 0.3 = 300ms)")
 	rootCmd.PersistentFlags().IntVar(&xMin, "xmin", 0, "Minimum Horizontal Screen Address, defaults to 0")
 	rootCmd.PersistentFlags().IntVar(&xMax, "xmax", -1, "Maximum Horizontal Screen Address, defaults current screen width")
 	rootCmd.PersistentFlags().IntVar(&yMin, "ymin", 0, "Minimum Vertical Screen Address, defaults to 0")
 	rootCmd.PersistentFlags().IntVar(&yMax, "ymax", -1, "Maximum Vertical Screen Address, defaults current screen height")
 }
 
-func sleepSeconds(seconds int) {
-	time.Sleep(time.Duration(seconds) * time.Second)
-}
-
-func sleepMilliseconds(ms int) {
-	time.Sleep(time.Duration(ms) * time.Millisecond)
+func sleepSeconds(seconds float64) {
+	time.Sleep(time.Duration(seconds * float64(time.Second)))
 }
 
 func randRClick() {

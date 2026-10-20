@@ -18,7 +18,7 @@ var clickCmd = &cobra.Command{
 		fmt.Println("Clicking the mouse at current mouse position")
 		if loop > 0 {
 			for {
-				sleepMilliseconds(loop)
+				sleepSeconds(loop)
 				robotgo.Click()
 			}
 		}
